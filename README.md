@@ -1,6 +1,6 @@
 # Machine Learning from Scratch
 
-A repository where a neural network used to analyze MNIST images is implemented using only numpy.
+A repository where a simple neural network used to analyze MNIST images is implemented using only numpy.
 
 The file `preprocess.py` pulls the MNIST dataset using Tensorflow Keras, flattens, one-hot encodes, and stores the images in serialized Pickle files. 
 
@@ -17,4 +17,6 @@ An implementation of the same thing with a Support Vector Machine (SVM).
 
 Comparing the sigmoid activation function to ReLU.
 
-Adding more layers, automating the decision of the neural network parameters. 
+Automating the settings of the neural network parameters. 
+
+Implementing a Tsetlin machine to analyze MNIST images.
