@@ -11,6 +11,14 @@ However, whereas he sets the size of the hidden layer to be 100, I have set mine
 
 This is because running it with a size of 100 led to an accuracy of just around 40 %, but with an input size of 60, it ended up with an accuracy of 92 %, likely due to the effects of overfitting. Future question for myself: how can one determine automatically what size to set?
 
+## Getting started
+
+1. Clone the repository
+
+2. Create a directory called `pkl_files` in the same directory
+
+3. Run `preprocess.py` **first**, then run `train.py`.
+
 ## Future additions to be added soon
 
 An implementation of the same thing with a Support Vector Machine (SVM).
