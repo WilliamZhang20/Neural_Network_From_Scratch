@@ -28,6 +28,21 @@ class Sigmoid:
     def backward(self, output_gradient):
         return output_gradient * self.output * (1 - self.output)
     
+class Dropout:
+    def __init__(self, dropout_rate):
+        self.dropout_rate = dropout_rate
+        self.mask = None # matrix to represent dropped out inputs of the layer
+
+    def forward(self, input, training=True):
+        if training:
+            self.mask = np.random.binomial(1, 1-self.dropout_rate, size=input.shape) / (1 - self.dropout_rate)
+            return input*self.mask # dropped out neurons squashed to zero
+        else:
+            return input # during testing, all neurons persist
+    
+    def backward(self, output_gradient):
+        return output_gradient*self.mask
+
 class NeuralNetwork:
     def __init__(self, input_size, hidden_size, output_size):
         self.activation_function = Sigmoid()
@@ -36,9 +51,9 @@ class NeuralNetwork:
         self.linear2 = Linear(hidden_size, output_size) # second layer
 
     def forward(self, X):
-        output = self.linear1.forward(X)
-        output = self.activation_function.forward(output)
-        output = self.linear2.forward(output)   
+        output = self.linear1.forward(X) # pass inputs through to get outputs
+        output = self.activation_function.forward(output) # fire neurons of the hidden layer
+        output = self.linear2.forward(output)  # run functions of output layer
         return output
     
     def backward(self, X, Y, Y_pred, learning_rate):
@@ -81,5 +96,5 @@ Y_train = load_from_pickle(f"{dir}/train_labels.pkl")
 X_test = load_from_pickle(f"{dir}/test_images.pkl")
 Y_test = load_from_pickle(f"{dir}/test_labels.pkl")
 
-nn = NeuralNetwork(28*28, 60, 10) # we have set a learning rate of 60 
+nn = NeuralNetwork(28*28, 50, 10) # we have set the size of the hidden layer to be 50 neurons
 nn.train(X_train, Y_train, X_test, Y_test, 25, 0.01, 32)
