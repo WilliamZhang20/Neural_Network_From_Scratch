@@ -19,7 +19,7 @@ Somehow, dropout doesn't improve accuracy, it only decreases it, why? Overall, I
 
 ## The Support Vector Machine
 
-Attempts so far have led to the freezing up of my CPU. Trying an RBF kernel does not work because it has to work with a ridiculously massive 784 x 784 matrix. "From scratch" probably won't apply here!
+Attempts so far have led to the freezing up of my CPU. Trying an RBF kernel does not work because it has to work with a ridiculously massive 784 x 784 matrix. Clearly, I'll have to add many more optimizations, one of which will be SMO (Sequential Minimal Optimization).
 
 ## Getting started
 
