@@ -9,7 +9,11 @@ Finally, the file `train.py` trains a neural network on the dataset, which conta
 The overall implementation follows the tutorial from [Sanjay](https://www.youtube.com/watch?v=aRqEBIC-Xcw). 
 However, whereas he sets the size of the hidden layer to be 100, I have set mine to 60.
 
-This is because running it with a size of 100 led to an accuracy of just around 40 %, but with a hidden size of 50, it ended up with an accuracy of over 94 %, likely due to the effects of overfitting. Future question for myself: how can one determine automatically what size to set? How does one implement dropout?
+This is because running it with a size of 100 led to an accuracy of just around 40 %, but with a hidden size of 50 *without dropout*, it ended up with an accuracy of over 94 %, likely due to the effects of overfitting. Future question for myself: how can one determine automatically what size to set? 
+
+Moreover, I added the regularization method of [dropout](https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf), to randomly set a fraction of hidden layer neurons to zero to make the neural network architecture flexible. Nodes are randomly selected at each propagation to be dropped out, with dropout decisions stored in a matrix. Then, weights are multiplied into the matrix to obtain the neural architecture for that epoch. 
+
+Somehow, dropout doesn't improve accuracy, it only decreases it, why? Overall, I was still able to keep accuracy above 90 with a softer dropout rate of 0.3, and 50 nodes in the hidden layer.
 
 ## Getting started
 
@@ -21,10 +25,8 @@ This is because running it with a size of 100 led to an accuracy of just around 
 
 ## Future additions to be added soon
 
-An implementation of the same thing with a Support Vector Machine (SVM).
-
 Comparing the sigmoid activation function to ReLU.
 
-Automating the settings of the neural network parameters. 
+Optimizing the settings of the neural network parameters. 
 
 Implementing a Tsetlin machine to analyze MNIST images.

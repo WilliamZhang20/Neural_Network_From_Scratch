@@ -44,21 +44,24 @@ class Dropout:
         return output_gradient*self.mask
 
 class NeuralNetwork:
-    def __init__(self, input_size, hidden_size, output_size):
-        self.activation_function = Sigmoid()
+    def __init__(self, input_size, hidden_size, output_size, dropout_rate = 0.2):
+        self.activation_function = Sigmoid() 
+        self.dropout = Dropout(dropout_rate)
 
-        self.linear1 = Linear(input_size, hidden_size) # first layer
-        self.linear2 = Linear(hidden_size, output_size) # second layer
+        self.linear1 = Linear(input_size, hidden_size) # first layer (hidden layer)
+        self.linear2 = Linear(hidden_size, output_size) # second layer (output layer)
 
-    def forward(self, X):
+    def forward(self, X, training=True):
         output = self.linear1.forward(X) # pass inputs through to get outputs
         output = self.activation_function.forward(output) # fire neurons of the hidden layer
-        output = self.linear2.forward(output)  # run functions of output layer
+        output = self.dropout.forward(output, training)
+        output = self.linear2.forward(output)  # obtain output of of output layer
         return output
     
     def backward(self, X, Y, Y_pred, learning_rate):
         output_gradient = Y_pred - Y # diff between predicted and actual
         output_gradient = self.linear2.backward(output_gradient, learning_rate) # running backwards propagation from 2 to 1
+        output_gradient = self.dropout.backward(output_gradient) # back through dropout first
         output_gradient = self.activation_function.backward(output_gradient) # scaling inverse sigmoid to fire neurons
         output_gradient = self.linear1.backward(output_gradient, learning_rate)
 
