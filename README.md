@@ -1,10 +1,14 @@
 # Machine Learning from Scratch
 
-A repository where I compare various algorithms to recognize MNIST images, all from scratch using no ML libraries.
+A repository where I implement a neural network from scratch to recognize MNIST handwritten digits. It includes different experimentations to try out different types of features. 
 
 The file `preprocess.py` pulls the MNIST dataset using Tensorflow Keras, then flattens, one-hot encodes, and stores the images in serialized Pickle files. 
 
-Finally, the file `train.py` trains a neural network on the dataset, which contains 1 hidden layer, and activates neurons using sigmoid functions.
+The file `activations.py` contains sets of neural activation functions to try out, each of which has a regular and inverse computation
+
+The file `layers.py` experiments which various layers, and includes a linear layer and a dropout layer. 
+
+Finally, the file `train_neural_net.py` trains a neural network on the dataset, which contains 1 hidden layer, and activates neurons using sigmoid functions.
 
 ## The Neural Network
 
@@ -15,12 +19,6 @@ This is because running it with a size of 100 led to an accuracy of just around 
 
 Moreover, I added the regularization method of [dropout](https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf), to randomly set a fraction of hidden layer neurons to zero to make the neural network architecture flexible. Nodes are randomly selected at each propagation to be dropped out, with dropout decisions stored in a matrix. Then, weights are multiplied into the matrix to obtain the neural architecture for that epoch. 
 
-Somehow, dropout doesn't improve accuracy, it only decreases it, why? Overall, I could keep accuracy above 90 with a softer dropout rate of 0.3, and 50 nodes in the hidden layer.
-
-## The Support Vector Machine
-
-Attempts so far have led to the freezing up of my CPU. Trying an RBF kernel does not work because it has to work with a ridiculously massive 784 x 784 matrix. Clearly, I'll have to add many more optimizations, one of which will be SMO (Sequential Minimal Optimization).
-
 ## Getting started
 
 1. Clone the repository
@@ -28,11 +26,3 @@ Attempts so far have led to the freezing up of my CPU. Trying an RBF kernel does
 2. Move to the repo directory and create a folder called `pkl_files`.
 
 3. Run `preprocess.py` **first**, then run `train.py`.
-
-## Future additions to be added soon
-
-Comparing the sigmoid activation function to ReLU.
-
-Optimizing the settings of the neural network parameters. 
-
-Implementing a Tsetlin machine to analyze MNIST images.
